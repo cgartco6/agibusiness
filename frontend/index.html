@@ -44,5 +44,24 @@
         }
     });
 </script>
+ <!-- Robyn AI Chat Interface (Fixed Position) -->
+<div id="ai-chat-container" class="ai-chat">
+  <div class="ai-chat-header">
+    <h4>Robyn AI Assistant</h4>
+    <button class="close-chat">&times;</button>
+  </div>
+  <div id="ai-chat-messages"></div>
+  <form id="ai-chat-form" class="ai-chat-input">
+    <input type="text" placeholder="Ask me anything..." aria-label="Chat input">
+    <button type="submit">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+    </button>
+  </form>
+</div>
+
+<!-- Chat Trigger Button (Floating) -->
+<button id="ai-chat-trigger" class="floating-chat-button">
+  <img src="assets/img/robyn-icon.svg" alt="Open AI Chat" width="24" height="24">
+</button>   
 </body>
 </html>
