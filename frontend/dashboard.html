@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <title>My AI Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-grid">
+        <aside class="neuro-glass">
+            <div class="ai-avatar-container">
+                <model-viewer src="../assets/img/ai-avatar.glb" auto-rotate></model-viewer>
+                <h3>Your AI Assistant</h3>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#projects">My Projects</a></li>
+                    <li><a href="#content">Content Library</a></li>
+                    <li><a href="#analytics">Performance</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main>
+            <section id="project-viewer">
+                <!-- Dynamic content loaded by ai-loader.js -->
+            </section>
+        </main>
+    </div>
+
+    <script src="../assets/js/ai-loader.js"></script>
+</body>
+</html>
