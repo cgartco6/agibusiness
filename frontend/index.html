@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI | Autonomous Business Solutions</title>
+    <link rel="stylesheet" href="assets/css/holographic.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+    <header class="neuro-glass">
+        <model-viewer 
+            src="assets/img/ai-avatar.glb" 
+            ar ar-modes="webxr scene-viewer quick-look"
+            camera-controls autoplay
+            class="hologram">
+        </model-viewer>
+        <h1>Your Autonomous <span class="gradient-text">AI Workforce</span></h1>
+    </header>
+
+    <section id="dynamic-services" class="service-grid">
+        <!-- AI-Populated Content -->
+        <div class="service-card" v-for="service in services">
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            <button @click="launchService(service.id)">Deploy AI</button>
+        </div>
+    </section>
+
+    <script src="assets/js/ai-loader.js"></script>
+</body>
+</html>
