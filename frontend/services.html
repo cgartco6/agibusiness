@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="business">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Services Marketplace | NexusAGI</title>
+    <link rel="stylesheet" href="assets/css/holographic.css">
+    <link rel="stylesheet" href="assets/css/services.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.47/dist/vue.global.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+    <header class="neuro-glass service-header">
+        <div class="header-content">
+            <h1>Your <span class="gradient-text">AI Workforce</span> Marketplace</h1>
+            <p>Deploy specialized AI agents in seconds</p>
+            <div class="ai-search">
+                <input type="text" v-model="searchQuery" placeholder="What do you need today?">
+                <button @click="filterServices">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <model-viewer 
+            src="assets/img/service-avatar.glb" 
+            ar ar-modes="webxr scene-viewer quick-look"
+            camera-controls autoplay
+            class="service-hologram">
+        </model-viewer>
+    </header>
+
+    <main id="service-app">
+        <section class="service-categories">
+            <button 
+                v-for="category in categories" 
+                :class="{ active: activeCategory === category.id }"
+                @click="setCategory(category.id)">
+                {{ category.name }}
+            </button>
+        </section>
+
+        <div class="service-grid-container">
+            <div class="service-grid">
+                <article 
+                    class="service-card neuro-glass" 
+                    v-for="service in filteredServices"
+                    :key="service.id">
+                    <div class="service-icon">
+                        <img :src="'assets/img/icons/' + service.icon" :alt="service.name">
+                    </div>
+                    <h3>{{ service.name }}</h3>
+                    <p class="service-description">{{ service.description }}</p>
+                    
+                    <div class="service-meta">
+                        <span class="price">From R{{ service.startingPrice }}</span>
+                        <span class="delivery">{{ service.deliveryTime }}</span>
+                    </div>
+
+                    <div class="service-actions">
+                        <button class="btn-details" @click="showDetails(service.id)">
+                            Configure
+                        </button>
+                        <button class="btn-cart" @click="addToCart(service)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- Service Details Modal -->
+        <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
+            <div class="service-modal neuro-glass">
+                <button class="close-modal" @click="closeModal">
+                    &times;
+                </button>
+                <h2>{{ selectedService.name }}</h2>
+                <p class="modal-description">{{ selectedService.longDescription }}</p>
+                
+                <div class="configuration-options">
+                    <div class="option" v-for="option in selectedService.options">
+                        <h4>{{ option.name }}</h4>
+                        <select v-model="option.selected">
+                            <option v-for="choice in option.choices" :value="choice.value">
+                                {{ choice.label }} (+R{{ choice.price }})
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-line">
+                        <span>Base price:</span>
+                        <span>R{{ selectedService.startingPrice }}</span>
+                    </div>
+                    <div class="summary-line" v-for="option in selectedService.options">
+                        <span>{{ option.name }}:</span>
+                        <span>R{{ getOptionPrice(option) }}</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total:</span>
+                        <span>R{{ calculateTotal() }}</span>
+                    </div>
+                </div>
+
+                <button class="btn-add-to-cart" @click="addConfiguredToCart">
+                    Add to Cart - R{{ calculateTotal() }}
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="service-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>NexusAGI</h3>
+                <p>Autonomous Business Solutions</p>
+            </div>
+            <nav class="footer-nav">
+                <a href="/">Home</a>
+                <a href="/services.html" class="active">Services</a>
+                <a href="/dashboard.html">My Dashboard</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="assets/js/service-builder.js"></script>
+    <script>
+        const { createApp, ref, computed } = Vue;
+        
+        createApp({
+            setup() {
+                // Service data
+                const services = ref([
+                    {
+                        id: 1,
+                        name: 'Smart Chatbot',
+                        category: 'automation',
+                        icon: 'chatbot.svg',
+                        description: 'AI-powered conversational agent for your business',
+                        longDescription: 'Our advanced chatbots understand natural language and can handle customer inquiries 24/7. Customizable to your brand voice and integrated with your existing systems.',
+                        startingPrice: 499,
+                        deliveryTime: '3-5 business days',
+                        options: [
+                            {
+                                name: 'Complexity',
+                                selected: 'basic',
+                                choices: [
+                                    { label: 'Basic Q&A', value: 'basic', price: 0 },
+                                    { label: 'Advanced Logic', value: 'advanced', price: 300 },
+                                    { label: 'Machine Learning', value: 'ml', price: 800 }
+                                ]
+                            },
+                            {
+                                name: 'Integrations',
+                                selected: 'none',
+                                choices: [
+                                    { label: 'None', value: 'none', price: 0 },
+                                    { label: 'WhatsApp', value: 'whatsapp', price: 200 },
+                                    { label: 'Website + WhatsApp', value: 'both', price: 350 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        name: 'Content Creator',
+                        category: 'content',
+                        icon: 'content.svg',
+                        description: 'Automated HD content generation for all platforms',
+                        longDescription: 'Our AI content creators produce photorealistic images, engaging videos, and compelling copy tailored to your brand guidelines and marketing objectives.',
+                        startingPrice: 899,
+                        deliveryTime: '2-7 business days',
+                        options: [
+                            {
+                                name: 'Content Type',
+                                selected: 'images',
+                                choices: [
+                                    { label: 'Static Images', value: 'images', price: 0 },
+                                    { label: 'Video Clips', value: 'video', price: 500 },
+                                    { label: 'Full Campaign', value: 'campaign', price: 1200 }
+                                ]
+                            },
+                            {
+                                name: 'Volume',
+                                selected: '5',
+                                choices: [
+                                    { label: '5 pieces', value: '5', price: 0 },
+                                    { label: '15 pieces', value: '15', price: 400 },
+                                    { label: '30 pieces', value: '30', price: 700 }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        name: 'Social Media Manager',
+                        category: 'marketing',
+                        icon: 'social.svg',
+                        description: 'Full-service social media automation',
+                        longDescription: 'Our AI social managers create content calendars, write posts, schedule publications, and engage with your audience across all major platforms.',
+                        startingPrice: 1299,
+                        deliveryTime: 'Instant deployment',
+                        options: [
+                            {
+                                name: 'Platforms',
+                                selected: 'basic',
+                                choices: [
+                                    { label: '2 Platforms', value: 'basic', price: 0 },
+                                    { label: '5 Platforms', value: 'advanced', price: 600 },
+                                    { label: 'All Platforms', value: 'all', price: 1000 }
+                                ]
+                            },
+                            {
+                                name: 'Duration',
+                                selected: '1month',
+                                choices: [
+                                    { label: '1 Month', value: '1month', price: 0 },
+                                    { label: '3 Months', value: '3months', price: 800 },
+                                    { label: '6 Months', value: '6months', price: 1500 }
+                                ]
+                            }
+                        ]
+                    }
+                ]);
+
+                // UI state
+                const searchQuery = ref('');
+                const activeCategory = ref('all');
+                const showModal = ref(false);
+                const selectedService = ref(null);
+                const cart = ref([]);
+
+                // Computed properties
+                const categories = computed(() => [
+                    { id: 'all', name: 'All Services' },
+                    { id: 'automation', name: 'Automation' },
+                    { id: 'content', name: 'Content' },
+                    { id: 'marketing', name: 'Marketing' }
+                ]);
+
+                const filteredServices = computed(() => {
+                    let result = services.value;
+                    
+                    // Filter by search
+                    if (searchQuery.value) {
+                        const query = searchQuery.value.toLowerCase();
+                        result = result.filter(service => 
+                            service.name.toLowerCase().includes(query) || 
+                            service.description.toLowerCase().includes(query)
+                        );
+                    }
+                    
+                    // Filter by category
+                    if (activeCategory.value !== 'all') {
+                        result = result.filter(service => 
+                            service.category === activeCategory.value
+                        );
+                    }
+                    
+                    return result;
+                });
+
+                // Methods
+                const setCategory = (categoryId) => {
+                    activeCategory.value = categoryId;
+                };
+
+                const showDetails = (serviceId) => {
+                    selectedService.value = JSON.parse(JSON.stringify(
+                        services.value.find(s => s.id === serviceId)
+                    ));
+                    showModal.value = true;
+                };
+
+                const closeModal = () => {
+                    showModal.value = false;
+                };
+
+                const getOptionPrice = (option) => {
+                    const selected = option.choices.find(c => c.value === option.selected);
+                    return selected ? selected.price : 0;
+                };
+
+                const calculateTotal = () => {
+                    if (!selectedService.value) return 0;
+                    
+                    let total = selectedService.value.startingPrice;
+                    selectedService.value.options.forEach(option => {
+                        total += getOptionPrice(option);
+                    });
+                    
+                    return total;
+                };
+
+                const addToCart = (service) => {
+                    cart.value.push({
+                        ...service,
+                        finalPrice: service.startingPrice
+                    });
+                    // In a real app, you would update a cart counter or show a notification
+                    console.log('Added to cart:', service.name);
+                };
+
+                const addConfiguredToCart = () => {
+                    const configuredService = {
+                        ...selectedService.value,
+                        finalPrice: calculateTotal(),
+                        configuredOptions: selectedService.value.options.map(opt => ({
+                            name: opt.name,
+                            selected: opt.selected
+                        }))
+                    };
+                    cart.value.push(configuredService);
+                    showModal.value = false;
+                    // In a real app, you would update a cart counter or show a notification
+                    console.log('Added configured service to cart:', configuredService.name);
+                };
+
+                return {
+                    services,
+                    searchQuery,
+                    activeCategory,
+                    showModal,
+                    selectedService,
+                    categories,
+                    filteredServices,
+                    setCategory,
+                    showDetails,
+                    closeModal,
+                    getOptionPrice,
+                    calculateTotal,
+                    addToCart,
+                    addConfiguredToCart
+                };
+            }
+        }).mount('#service-app');
+    </script>
+</body>
+</html>
