@@ -1,0 +1,39 @@
+:root {
+    --primary: #6e48aa;
+    --secondary: #9d50bb;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+    font-family: 'Segoe UI', system-ui;
+}
+
+.hologram {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    --poster-color: transparent;
+}
+
+.neuro-glass {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
