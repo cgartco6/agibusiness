@@ -1,0 +1,6 @@
+Django==4.2
+psutil==5.9.4
+tweepy==4.12.1
+instabot==0.117.0
+python-linkedin-api==2.0.0
+gunicorn==20.1.0
