@@ -29,5 +29,22 @@
     </div>
 
     <script src="../assets/js/ai-loader.js"></script>
+    <!-- Dashboard-specific JS -->
+<script src="assets/js/ai-loader.js" defer></script>
+<script src="assets/js/payment-processor.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize dashboard-specific AI features
+        const aiLoader = new AILoader();
+        aiLoader.loadUserPreferences();
+        
+        // Payment history loader
+        if (document.getElementById('payment-history')) {
+            const paymentProcessor = new AGIPaymentProcessor();
+            paymentProcessor.loadPaymentHistory();
+        }
+    });
+</script>
 </body>
 </html>
