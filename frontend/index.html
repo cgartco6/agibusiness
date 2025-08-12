@@ -28,5 +28,21 @@
     </section>
 
     <script src="assets/js/ai-loader.js"></script>
+    <!-- AI Core System -->
+<script src="assets/js/ai-loader.js" defer></script>
+<script src="assets/js/payment-processor.js" defer></script>
+
+<!-- Initialize AI System -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize main AI loader
+        const aiLoader = new AILoader();
+        
+        // Initialize payment processor if on payment page
+        if (document.getElementById('payment-form')) {
+            const paymentProcessor = new AGIPaymentProcessor();
+        }
+    });
+</script>
 </body>
 </html>
