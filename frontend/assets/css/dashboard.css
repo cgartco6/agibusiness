@@ -1,0 +1,37 @@
+:root {
+    --dashboard-bg: #0f172a;
+    --glass-panel: rgba(255, 255, 255, 0.05);
+    --primary-accent: #3b82f6;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    background: var(--dashboard-bg);
+    color: white;
+}
+
+.neuro-glass {
+    background: var(--glass-panel);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.ai-avatar-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+model-viewer {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+}
+
+#project-viewer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
