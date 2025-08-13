@@ -3,131 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Deploy autonomous AI agents for your business in seconds. South Africa's premier AGI platform.">
-  
-  <!-- Critical CSS Inlined -->
-  <style>
-    :root {
-      --primary: #6e48aa;
-      --secondary: #9d50bb;
-      --dark: #1a1a2e;
-      --light: #f8f9fa;
-      --glass: rgba(255, 255, 255, 0.05);
-      --success: #4ade80;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: radial-gradient(circle at center, var(--dark) 0%, #16213e 100%);
-      color: var(--light);
-      line-height: 1.6;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-    
-    /* Base Styles */
-    h1, h2, h3 {
-      font-weight: 600;
-      line-height: 1.2;
-    }
-    
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    
-    button {
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    
-    /* Glassmorphism Effect */
-    .neuro-glass {
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Gradient Text */
-    .gradient-text {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-  </style>
+  <title>NexusAI | Autonomous Business Solutions</title>
   
   <!-- Preload Critical Assets -->
-  <link rel="preload" href="./assets/fonts/segoe-ui.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./assets/js/ai-loader.js" as="script">
-  <link rel="preload" href="./assets/models/ai-avatar.glb" as="fetch">
+  <link rel="preload" href="./assets/css/main.css" as="style">
+  <link rel="preload" href="./assets/js/main.js" as="script">
   
-  <!-- Non-critical CSS -->
-  <link rel="stylesheet" href="./assets/css/main.css" media="print" onload="this.media='all'">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="./assets/css/main.css">
   
   <!-- Favicon -->
   <link rel="icon" href="./assets/img/favicon.webp" type="image/webp">
-  
-  <!-- Social Meta Tags -->
-  <meta property="og:title" content="NexusAI - Autonomous Business Solutions">
-  <meta property="og:description" content="Deploy specialized AI agents in seconds. No coding required.">
-  <meta property="og:image" content="https://yourdomain.co.za/assets/img/social-preview.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  
-  <title>NexusAI | Autonomous Business Solutions</title>
 </head>
 
 <body>
-  <!-- 3D AI Avatar (Lazy Loaded) -->
-  <model-viewer 
-    src="./assets/models/ai-avatar.glb"
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    camera-controls
-    autoplay
-    class="hero-avatar"
-    alt="3D AI Assistant"
-    loading="lazy"
-    reveal="auto">
-  </model-viewer>
-
-  <!-- Main Navigation -->
-  <header class="neuro-glass">
+  <!-- Navigation -->
+  <header class="navbar">
     <div class="container">
-      <nav class="navbar">
-        <a href="/" class="logo">
-          <img src="./assets/img/logo.webp" width="40" height="40" alt="NexusAI" loading="lazy">
-          <span>NexusAI</span>
-        </a>
-        
-        <div class="nav-links">
-          <a href="#services">Services</a>
-          <a href="#solutions">Solutions</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#case-studies">Case Studies</a>
-        </div>
-        
-        <div class="nav-actions">
-          <button class="btn-login">Client Login</button>
-          <button class="btn-primary" id="cta-nav">Get Started</button>
-        </div>
-        
-        <button class="mobile-menu-btn" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+      <a href="/" class="logo">
+        <img src="./assets/img/logo.webp" alt="NexusAI" width="40" height="40">
+        <span>NexusAI</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="/dashboard.html">Dashboard</a>
       </nav>
+      
+      <div class="nav-actions">
+        <button class="btn btn-secondary">Login</button>
+        <button class="btn btn-primary">Sign Up</button>
+      </div>
     </div>
   </header>
 
@@ -135,165 +42,55 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Your <span class="gradient-text">Autonomous</span> AI Workforce</h1>
-        <p class="subtitle">Deploy specialized AI agents in seconds. No coding required.</p>
-        
-        <div class="cta-container">
-          <button class="btn-primary" id="deploy-agent">
-            Deploy Your First Agent
-          </button>
-          <button class="btn-secondary" id="live-demo">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="23 7 16 12 23 17 23 7"></polygon>
-              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-            </svg>
-            Watch Live Demo
-          </button>
-        </div>
-        
-        <div class="trust-badges">
-          <img src="./assets/img/pci-compliant.webp" width="120" height="40" alt="PCI Compliant" loading="lazy">
-          <img src="./assets/img/popia-compliant.webp" width="120" height="40" alt="POPIA Compliant" loading="lazy">
-          <img src="./assets/img/fnb-secure.webp" width="120" height="40" alt="FNB Secure" loading="lazy">
+        <h1>Your Autonomous <span class="gradient-text">AI Workforce</span></h1>
+        <p>Deploy specialized AI agents in seconds with no coding required</p>
+        <div class="cta-buttons">
+          <button class="btn btn-primary btn-lg">Get Started</button>
+          <button class="btn btn-outline btn-lg">View Demo</button>
         </div>
       </div>
       
-      <div class="hero-stats">
-        <div class="stat-card">
-          <span class="stat-number" id="agents-deployed">0</span>
-          <span class="stat-label">Agents Deployed</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">24/7</span>
-          <span class="stat-label">Support</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number"><span id="uptime-percent">99.9</span>%</span>
-          <span class="stat-label">Uptime</span>
-        </div>
+      <div class="hero-image">
+        <model-viewer
+          src="./assets/models/ai-avatar.glb"
+          alt="3D AI Assistant"
+          camera-controls
+          auto-rotate
+          ar
+          style="width: 100%; height: 100%">
+        </model-viewer>
       </div>
     </div>
   </section>
 
   <!-- AI Agent Console -->
-  <section class="ai-console" id="agent-console">
+  <section class="ai-console">
     <div class="container">
-      <div class="console-header">
-        <h2>AI Agent Dashboard</h2>
-        <div class="agent-status">
-          <span class="status-indicator active"></span>
-          <span>All Systems Operational</span>
-        </div>
-      </div>
-      
-      <div class="agent-grid" id="agent-grid">
-        <!-- Dynamic content loaded by ai-loader.js -->
-      </div>
-      
-      <div class="console-actions">
-        <button class="btn-create" id="create-agent">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M5 12h14"></path>
-          </svg>
-          Create New Agent
-        </button>
+      <h2>AI Agent Dashboard</h2>
+      <div class="agent-grid" id="agentGrid">
+        <!-- Agents will be loaded here -->
       </div>
     </div>
   </section>
 
-  <!-- Integrated AI Chat -->
-  <div id="ai-chat-container" class="ai-chat">
+  <!-- AI Chat Interface -->
+  <div class="ai-chat" id="aiChat">
     <div class="chat-header">
-      <div class="chat-title">
-        <img src="./assets/img/robyn-avatar.webp" width="32" height="32" alt="Robyn" loading="lazy">
-        <h3>Robyn AI Assistant</h3>
-      </div>
-      <button class="close-chat" aria-label="Close chat">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
+      <h3>Robyn AI Assistant</h3>
+      <button class="close-chat">&times;</button>
     </div>
-    
-    <div id="ai-chat-messages" class="chat-messages">
-      <div class="ai-message">
-        <div class="message-avatar">
-          <img src="./assets/img/robyn-avatar.webp" width="24" height="24" alt="Robyn" loading="lazy">
-        </div>
-        <div class="message-content">
-          <p>Hello! I'm Robyn, your AI assistant. How can I help you today?</p>
-          <div class="quick-replies">
-            <button class="quick-reply" data-query="Create content agent">Create content agent</button>
-            <button class="quick-reply" data-query="Pricing plans">Pricing plans</button>
-            <button class="quick-reply" data-query="Technical support">Technical support</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <form id="ai-chat-form" class="chat-input">
-      <input type="text" placeholder="Ask me about AI agents..." aria-label="Chat input" autocomplete="off">
-      <button type="submit" aria-label="Send message">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 2L11 13"></path>
-          <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
-        </svg>
-      </button>
+    <div class="chat-messages" id="chatMessages"></div>
+    <form class="chat-input" id="chatForm">
+      <input type="text" placeholder="Ask me anything..." aria-label="Chat input">
+      <button type="submit">Send</button>
     </form>
   </div>
-  
-  <button id="ai-chat-trigger" class="floating-chat-btn" aria-label="Open AI chat">
-    <img src="./assets/img/chat-icon.webp" width="24" height="24" alt="Chat" loading="lazy">
+  <button class="chat-toggle" id="chatToggle">
+    <img src="./assets/img/chat-icon.webp" alt="Chat" width="24" height="24">
   </button>
 
-  <!-- Performance Optimized Scripts -->
-  <script src="./assets/js/ai-loader.js" type="module" async></script>
-  <script src="./assets/js/agent-manager.js" type="module" async></script>
-  <script src="./assets/js/chat-interface.js" type="module" async></script>
-  
-  <!-- Load model-viewer lazily -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" async></script>
-  
-  <!-- Instant Page for faster navigation -->
-  <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z" async></script>
-  
-  <!-- Inline script for critical functionality -->
-  <script>
-    // Set theme based on preference
-    if (localStorage.getItem('theme') === 'light' || 
-        (window.matchMedia('(prefers-color-scheme: light)').matches && !localStorage.getItem('theme'))) {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-    
-    // Simple counter animation
-    function animateCounter(element, target, duration = 2000) {
-      const start = 0;
-      const increment = target / (duration / 16);
-      let current = start;
-      
-      const timer = setInterval(() => {
-        current += increment;
-        element.textContent = Math.floor(current).toLocaleString();
-        
-        if (current >= target) {
-          element.textContent = target.toLocaleString();
-          clearInterval(timer);
-        }
-      }, 16);
-    }
-    
-    // Start counter when visible
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(document.getElementById('agents-deployed'), 12453);
-          observer.unobserve(entry.target);
-        }
-      });
-    });
-    
-    observer.observe(document.querySelector('.hero-stats'));
-  </script>
+  <!-- Scripts -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script src="./assets/js/main.js" type="module"></script>
 </body>
 </html>
