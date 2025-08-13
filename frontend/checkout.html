@@ -1,0 +1,28 @@
+<!-- Payment Form (Full Page Content) -->
+<form id="payment-form" class="checkout-form">
+  <h2>Complete Your Purchase</h2>
+  
+  <div class="form-group">
+    <label for="cardholder-name">Full Name</label>
+    <input type="text" id="cardholder-name" required>
+  </div>
+
+  <div class="form-group">
+    <label>Credit Card Details</label>
+    <div id="card-element" class="card-input"></div>
+    <div id="card-errors" class="error-message" role="alert"></div>
+  </div>
+
+  <div class="order-summary">
+    <h3>Order Summary</h3>
+    <div id="order-items"></div>
+    <div class="total-row">
+      <span>Total:</span>
+      <span id="order-total">R0.00</span>
+    </div>
+  </div>
+
+  <button type="submit" id="submit-payment" class="pay-button">
+    Pay Now
+  </button>
+</form>
