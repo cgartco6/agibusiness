@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta name="csrf-token" content="YOUR_CSRF_TOKEN">
+</head>
+<body>
+  <header>
+    <nav>
+      <!-- Cart Indicator -->
+      <div class="cart-wrapper">
+        <a href="/checkout.html" class="cart-link">
+          <span id="cart-counter">0</span>
+          <img src="assets/img/cart-icon.svg" alt="Cart">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Page Content -->
+  </main>
+
+  <!-- AI Chat Elements -->
+  <div id="ai-chat-container" class="ai-chat">...</div>
+  <button id="ai-chat-trigger" class="floating-chat-button">...</button>
+
+  <!-- Scripts -->
+  <script src="assets/js/ai-loader.js" defer></script>
+  <script src="assets/js/payment-processor.js" defer></script>
+</body>
+</html>
 
