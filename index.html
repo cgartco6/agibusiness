@@ -1,80 +1,138 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-   <body>
-  ...page content...
-  <!-- Bottom right corner -->
-  <div id="ai-chat-container">...</div>
-  <button id="ai-chat-trigger">...</button>
-</body> 
-    <!-- Cart Indicator -->
-<div class="cart-wrapper">
-  <a href="/checkout.html" class="cart-link">
-    <span id="cart-counter">0</span>
-    <img src="assets/img/cart-icon.svg" alt="Cart" width="24" height="24">
-  </a>
-</div>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusAI | Autonomous Business Solutions</title>
-    <link rel="stylesheet" href="assets/css/holographic.css">
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusAI | Autonomous Business Solutions</title>
+  
+  <!-- Critical CSS Inlined -->
+  <style>
+    :root {
+      --primary: #6e48aa;
+      --secondary: #9d50bb;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system;
+      background: radial-gradient(circle at center, var(--dark) 0%, #16213e 100%);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    /* Additional critical styles... */
+  </style>
+  
+  <!-- Preload Assets -->
+  <link rel="preload" href="./assets/fonts/segoe-ui.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./assets/js/ai-loader.js" as="script">
+  <link rel="preconnect" href="https://api.stripe.com">
+  
+  <!-- Non-critical CSS -->
+  <link rel="stylesheet" href="./assets/css/main.css" media="print" onload="this.media='all'">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="./assets/img/favicon.webp" type="image/webp">
 </head>
+
 <body>
-    <header class="neuro-glass">
-        <model-viewer 
-            src="assets/img/ai-avatar.glb" 
-            ar ar-modes="webxr scene-viewer quick-look"
-            camera-controls autoplay
-            class="hologram">
-        </model-viewer>
-        <h1>Your Autonomous <span class="gradient-text">AI Workforce</span></h1>
-    </header>
+  <!-- 3D AI Avatar -->
+  <model-viewer 
+    src="./assets/models/ai-avatar.glb" 
+    ar ar-modes="webxr scene-viewer quick-look"
+    camera-controls autoplay
+    class="hero-avatar"
+    alt="3D AI Assistant">
+  </model-viewer>
 
-    <section id="dynamic-services" class="service-grid">
-        <!-- AI-Populated Content -->
-        <div class="service-card" v-for="service in services">
-            <h3>{{ service.name }}</h3>
-            <p>{{ service.description }}</p>
-            <button @click="launchService(service.id)">Deploy AI</button>
-        </div>
-    </section>
+  <!-- Main Navigation -->
+  <header class="neuro-glass">
+    <nav>
+      <a href="/" class="logo">
+        <img src="./assets/img/logo.webp" width="40" height="40" alt="NexusAI">
+        <span>NexusAI</span>
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#demo">Live Demo</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-login">Client Login</button>
+      </div>
+    </nav>
+  </header>
 
-    <script src="assets/js/ai-loader.js"></script>
-    <!-- AI Core System -->
-<script src="assets/js/ai-loader.js" defer></script>
-<script src="assets/js/payment-processor.js" defer></script>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Your <span class="gradient-text">Autonomous</span> AI Workforce</h1>
+      <p class="subtitle">Deploy specialized AI agents in seconds. No coding required.</p>
+      
+      <div class="cta-container">
+        <button class="btn-primary" id="deploy-agent">
+          Deploy Your First Agent
+        </button>
+        <button class="btn-secondary" id="live-demo">
+          Watch Live Demo
+        </button>
+      </div>
+      
+      <div class="trust-badges">
+        <img src="./assets/img/pci-compliant.webp" width="120" height="40" alt="PCI Compliant">
+        <img src="./assets/img/popia-compliant.webp" width="120" height="40" alt="POPIA Compliant">
+      </div>
+    </div>
+  </section>
 
-<!-- Initialize AI System -->
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Initialize main AI loader
-        const aiLoader = new AILoader();
-        
-        // Initialize payment processor if on payment page
-        if (document.getElementById('payment-form')) {
-            const paymentProcessor = new AGIPaymentProcessor();
-        }
-    });
-</script>
- <!-- Robyn AI Chat Interface (Fixed Position) -->
-<div id="ai-chat-container" class="ai-chat">
-  <div class="ai-chat-header">
-    <h4>Robyn AI Assistant</h4>
-    <button class="close-chat">&times;</button>
+  <!-- AI Agent Console -->
+  <section class="ai-console" id="agent-console">
+    <div class="console-header">
+      <h2>AI Agent Dashboard</h2>
+      <div class="agent-status">
+        <span class="status-indicator active"></span>
+        <span>System Operational</span>
+      </div>
+    </div>
+    
+    <div class="agent-grid">
+      <!-- Dynamically loaded by ai-loader.js -->
+    </div>
+    
+    <div class="console-actions">
+      <button class="btn-create" id="create-agent">
+        <svg width="20" height="20"><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+        New AI Agent
+      </button>
+    </div>
+  </section>
+
+  <!-- Integrated AI Chat -->
+  <div id="ai-chat-container">
+    <div class="chat-header">
+      <h3>Robyn AI Assistant</h3>
+      <button class="close-chat">&times;</button>
+    </div>
+    <div id="ai-chat-messages"></div>
+    <form id="ai-chat-form" class="chat-input">
+      <input type="text" placeholder="Ask me about AI agents..." aria-label="Chat input">
+      <button type="submit">
+        <svg width="20" height="20"><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      </button>
+    </form>
   </div>
-  <div id="ai-chat-messages"></div>
-  <form id="ai-chat-form" class="ai-chat-input">
-    <input type="text" placeholder="Ask me anything..." aria-label="Chat input">
-    <button type="submit">
-      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
-    </button>
-  </form>
-</div>
+  <button id="ai-chat-trigger" class="floating-chat-btn">
+    <img src="./assets/img/chat-icon.webp" width="24" height="24" alt="AI Chat">
+  </button>
 
-<!-- Chat Trigger Button (Floating) -->
-<button id="ai-chat-trigger" class="floating-chat-button">
-  <img src="assets/img/robyn-icon.svg" alt="Open AI Chat" width="24" height="24">
-</button>   
+  <!-- Performance Optimized Scripts -->
+  <script src="./assets/js/ai-loader.js" type="module"></script>
+  <script src="./assets/js/agent-manager.js" type="module"></script>
+  
+  <!-- Load model-viewer lazily -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" async></script>
+  
+  <!-- Instant Page for faster navigation -->
+  <script src="https://instant.page/5.2.0" type="module" integrity="sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z" async></script>
 </body>
 </html>
